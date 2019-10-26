@@ -9,7 +9,6 @@
 
 #' @param alpha A numeric specifying the maximal allowed type one error rate
 #' @param timing Interim analysis timing
-#' @param sf Spending function name
 #' @param sfpar Spending function parameter
 #' @param debug Debug indicator
 #'
@@ -20,8 +19,8 @@
 #'
 #' @examples
 #'
-gMCPgSD_IW <- function(g,w.start,t,h,p,alpha=0.025,timing,sf,sfpar=NULL,debug){
-  w.all<-generateWeights(g,w.start)
+gMCPgSD_IW <- function(g,w.start,t,h,p,alpha=0.025,timing,sfpar,debug){
+  w.all<-gMCP::generateWeights(g,w.start)
   w.tmp<-w.start
   jd<-NULL
   cont <- TRUE
@@ -43,17 +42,17 @@ gMCPgSD_IW <- function(g,w.start,t,h,p,alpha=0.025,timing,sf,sfpar=NULL,debug){
         if(ss==1){
           alpha.tmp[j] <- spend.tmp[j]
         } else {
-          if(sf=='WT'){
-            ct<-gsDesign(k = length(t), test.type = 1, alpha = spend.tmp[j], sfu = 'WT',sfupar=sfpar,timing=timing)$upper$bound[t.tmp]
-          } else if(sf=='OF'){
-            ct<-gsDesign(k = length(t), test.type = 1, alpha = spend.tmp[j], sfu = 'OF',timing=timing)$upper$bound[t.tmp]
-          } else if(sf=='Pocock'){
-            ct<-gsDesign(k = length(t), test.type = 1, alpha = spend.tmp[j], sfu = 'Pocock',timing=timing)$upper$bound[t.tmp]
-          } else if(sf=='HSD'){
-            ct<-gsDesign(k = length(t), test.type = 1, alpha = spend.tmp[j], sfu = sfHSD,sfupar=sfpar,timing=timing)$upper$bound[t.tmp]
+          tmp.time <- timing[,j]
+          tmp.id <- which(!is.na(tmp.time))
+          if(sum(tmp.id==t.tmp)==1){
+            t.tmp2 <- which(tmp.id==t.tmp)
+            tmp.time <- tmp.time[!is.na(tmp.time)]
+            ct <- gsDesign(k = length(tmp.time), test.type = 1, alpha = spend.tmp[j], sfu = sfHSD,sfupar=sfpar[j],timing=tmp.time)$upper$bound[t.tmp2]
+            alpha.tmp[j] <- pnorm(ct, mean = 0, sd = 1, lower.tail = F, log.p = FALSE)
+          } else {
+            alpha.tmp[j]<-0
           }
-          alpha.tmp[j]<- pnorm(ct, mean = 0, sd = 1, lower.tail = F, log.p = FALSE)
-          #alpha.tmp[j]<- sfLDOF(spend.tmp[j],timing,sf)$spend[t.tmp]
+
         }
 
       }
@@ -104,18 +103,17 @@ gMCPgSD_IW <- function(g,w.start,t,h,p,alpha=0.025,timing,sf,sfpar=NULL,debug){
               if(ss==1){
                 alpha.jjj <- alpha.spend.jjj
               } else {
-                if(sf=='WT'){
-                  ct.jjj <- gsDesign(k = length(t), test.type = 1, alpha = alpha.spend.jjj, sfu = 'WT',sfupar=sfpar,timing=timing)$upper$bound[t.tmp]
-
-                } else if(sf=='OF'){
-                  ct.jjj <- gsDesign(k = length(t), test.type = 1, alpha = alpha.spend.jjj, sfu = 'OF',timing=timing)$upper$bound[t.tmp]
-                } else if(sf=='Pocock'){
-                  ct.jjj <- gsDesign(k = length(t), test.type = 1, alpha = alpha.spend.jjj, sfu = 'Pocock',timing=timing)$upper$bound[t.tmp]
-                } else if(sf=='HSD'){
-                  ct.jjj <- gsDesign(k = length(t), test.type = 1, alpha = alpha.spend.jjj, sfu = sfHSD,sfupar=sfpar,timing=timing)$upper$bound[t.tmp]
+                tmp.time <- timing[,id.jjj]
+                tmp.id <- which(!is.na(tmp.time))
+                if(sum(tmp.id==t.tmp)==1){
+                  t.tmp2 <- which(tmp.id==t.tmp)
+                  tmp.time <- tmp.time[!is.na(tmp.time)]
+                  ct <-gsDesign(k = length(tmp.time), test.type = 1, alpha = alpha.spend.jjj, sfu = sfHSD,sfupar=sfpar[id.jjj],timing=tmp.time)$upper$bound[t.tmp2]
+                  alpha.jjj <- pnorm(ct, mean = 0, sd = 1, lower.tail = F, log.p = FALSE)
+                } else {
+                  alpha.jjj<-0
                 }
 
-                alpha.jjj <- pnorm(ct.jjj, mean = 0, sd = 1, lower.tail = F, log.p = FALSE)
               }
 
               if(p.tmp[id.jjj]<=alpha.jjj){

@@ -5,8 +5,7 @@
 \title{Performs a graph based multiple test procedure for a given graph and
 unadjusted p-values}
 \usage{
-gMCPgSD_IW(g, w.start, t, h, p, alpha = 0.025, timing, sf,
-  sfpar = NULL, debug)
+gMCPgSD_IW(g, w.start, t, h, p, alpha = 0.025, timing, sfpar, debug)
 }
 \arguments{
 \item{g}{Matrix of local alpha to be passed. Each element defined how much of the local alpha reserved for the hypothesis corresponding to its row index is passed on to the hypothesis corresponding to its column index.}
@@ -22,8 +21,6 @@ gMCPgSD_IW(g, w.start, t, h, p, alpha = 0.025, timing, sf,
 \item{alpha}{A numeric specifying the maximal allowed type one error rate}
 
 \item{timing}{Interim analysis timing}
-
-\item{sf}{Spending function name}
 
 \item{sfpar}{Spending function parameter}
 

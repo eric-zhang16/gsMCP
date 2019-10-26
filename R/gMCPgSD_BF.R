@@ -9,7 +9,6 @@
 
 #' @param alpha A numeric specifying the maximal allowed type one error rate
 #' @param timing Interim analysis timing
-#' @param sf Spending function name
 #' @param sfpar Spending function parameter
 #' @param debug Debug indicator
 #'
@@ -20,8 +19,8 @@
 #'
 #' @examples
 #'
-gMCPgSD_BF <- function(g,w.start,t,h,p,alpha=0.025,timing,sf,sfpar=NULL,debug){
-  w.all<-generateWeights(g,w.start)
+gMCPgSD_BF <- function(g,w.start,t,h,p,alpha=0.025,timing,sfpar,debug){
+  w.all<-gMCP::generateWeights(g,w.start)
   w.tmp<-w.start
   jd<-NULL
   cont <- TRUE
@@ -35,23 +34,24 @@ gMCPgSD_BF <- function(g,w.start,t,h,p,alpha=0.025,timing,sf,sfpar=NULL,debug){
     if(gonext==1 & debug==1) print(paste('t=',t.tmp,sep=''))
     gonext=0
     p.tmp <- p[t.tmp,]
+
     spend.tmp <- alpha*w.tmp
     alpha.tmp <- rep(0,length(h))
     ## Step 1:Compute nominal significance level for each hypothesis test ##
     for(j in 1:length(h)){
       if(spend.tmp[j]>0){
         if(ss==0){
-          if(sf=='WT'){
-            ct<-gsDesign(k = length(t), test.type = 1, alpha = spend.tmp[j], sfu = 'WT',sfupar=sfpar,timing=timing)$upper$bound[t.tmp]
-          } else if(sf=='OF'){
-            ct<-gsDesign(k = length(t), test.type = 1, alpha = spend.tmp[j], sfu = 'OF',timing=timing)$upper$bound[t.tmp]
-          } else if(sf=='Pocock'){
-            ct<-gsDesign(k = length(t), test.type = 1, alpha = spend.tmp[j], sfu = 'Pocock',timing=timing)$upper$bound[t.tmp]
-          } else if(sf=='HSD'){
-            ct<-gsDesign(k = length(t), test.type = 1, alpha = spend.tmp[j], sfu = sfHSD,sfupar=sfpar,timing=timing)$upper$bound[t.tmp]
+          tmp.time <- timing[,j]
+          tmp.id <- which(!is.na(tmp.time))
+          if(sum(tmp.id==t.tmp)==1){
+            t.tmp2 <- which(tmp.id==t.tmp)
+            tmp.time <- tmp.time[!is.na(tmp.time)]
+            ct<-gsDesign(k = length(tmp.time), test.type = 1, alpha = spend.tmp[j], sfu = sfHSD,sfupar=sfpar[j],timing=tmp.time)$upper$bound[t.tmp2]
+            alpha.tmp[j]<- pnorm(ct, mean = 0, sd = 1, lower.tail = F, log.p = FALSE)
+          } else {
+            alpha.tmp[j]<-0
           }
 
-          alpha.tmp[j]<- pnorm(ct, mean = 0, sd = 1, lower.tail = F, log.p = FALSE)
           #alpha.tmp[j]<- sfLDOF(spend.tmp[j],timing,sf)$spend[t.tmp]
         } else {
           alpha.tmp[j] <- spend.tmp[j]

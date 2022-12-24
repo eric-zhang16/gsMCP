@@ -1,5 +1,5 @@
 # gsMCP
-This is an example for how to uapply a modified Simes test to a group sequential trial. 
+This is an example for how to apply a modified Simes test to a group sequential trial. 
 
 ## Installation
 

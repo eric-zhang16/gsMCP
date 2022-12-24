@@ -11,5 +11,5 @@ library(gsMCP)
 ```
 ## Set up initial alpha weights and transition weights per the below design
 
-![Testing Srtategy](https://github.com/eric-zhang16/gsMCP/tree/main/design.PNG?raw=true)
+![Testing Srtategy](https://github.com/eric-zhang16/gsMCP/tree/main/design.PNG)
 

@@ -12,7 +12,7 @@
 #' @param sfpar Spending function parameter
 #' @param debug Debug indicator
 #'
-#' @return a dataframe with column 'R' indicating whether each endpoint can be rejected, in the same order as input vector h
+#' @return a dataframe with a column 'Rejected' indicating which hypotheses from input h are rejected
 #' @import gMCP
 #' @import gsDesign
 #' @export
@@ -165,7 +165,7 @@ gMCPgSD_MS <- function(g,w.start,t,h,p,alpha=0.025,timing,sfpar,debug){
     }
 
   }
-  
-  res <- data.frame(H=h,R=jd)
+
+  res <- data.frame(Rejected=jd)
   return(res)
 }

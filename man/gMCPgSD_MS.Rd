@@ -27,7 +27,7 @@ gMCPgSD_MS(g, w.start, t, h, p, alpha = 0.025, timing, sfpar, debug)
 \item{debug}{Debug indicator}
 }
 \value{
-a dataframe with column 'R' indicating whether each endpoint can be rejected, in the same order as input vector h
+a dataframe with a column 'Rejected' indicating which hypotheses from input h are rejected
 }
 \description{
 Performs a graph based multiple test procedure for a given graph and

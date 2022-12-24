@@ -38,7 +38,7 @@ timing[,4]<-c(0.7,1)
 gsMCP uses Hwang-Shih-DeCani spending function. Users need to specify the gamma parameter
 
 ``` r
-sfpar<- c(-2,-2,-4,-4)
+sfpar<- c(-4,-4,-2,-2)
 ```
 ## Set up observed p-values
 p <- matrix(NA, nr=length(t), nc = length(h))   # p are the p-value matrix
@@ -49,9 +49,14 @@ p[,4]<-c(0.102,0.018)
 
 ## Apply graphical procedure 
 
-* Run the weighted bonferroni test first
+* Run the weighted bonferroni test first, no hypothesis is rejected
 ``` r
 gMCPgSD_BF(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar,debug=0)
 
 ```
+* Run the modified Simes test, all hypotheses are rejected. User can set debug=1 to track the rejection process
+``` r
+gMCPgSD_MS(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar,debug=0)
 
+
+```

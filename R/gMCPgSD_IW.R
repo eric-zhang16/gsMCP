@@ -12,14 +12,14 @@
 #' @param sfpar Spending function parameter
 #' @param debug Debug indicator
 #'
-#' @return Vector indicating whether each endpoint can be rejected
+#' @return a dataframe with column 'R' indicating whether each endpoint can be rejected, in the same order as input vector h
 #' @import gMCP
 #' @import gsDesign
 #' @export
 #'
 #' @examples
 #'
-gMCPgSD_IW <- function(g,w.start,t,h,p,alpha=0.025,timing,sfpar,debug){
+gMCPgSD_MS <- function(g,w.start,t,h,p,alpha=0.025,timing,sfpar,debug){
   w.all<-gMCP::generateWeights(g,w.start)
   w.tmp<-w.start
   jd<-NULL
@@ -155,7 +155,7 @@ gMCPgSD_IW <- function(g,w.start,t,h,p,alpha=0.025,timing,sfpar,debug){
         }
       }
     } else {  # if unrejected < 2, go to next IA #
-      if(debug==1)print(paste('No one rejected by Bonferroni and unrejected from Bonferroni test < 3, go to next step'))
+      if(debug==1)print(paste('No one rejected by Bonferroni and unrejected from Bonferroni test < 2, go to next step'))
       t.tmp <- t.tmp + 1
       gonext=1
       if(t.tmp>length(t)){
@@ -165,5 +165,7 @@ gMCPgSD_IW <- function(g,w.start,t,h,p,alpha=0.025,timing,sfpar,debug){
     }
 
   }
-  return(jd)
+  
+  res <- data.frame(H=h,R=jd)
+  return(res)
 }

@@ -7,8 +7,8 @@ Install the released version of gsMCP from GitHub with:
 
 ``` r
 devtools::install_github("eric-zhang16/gsMCP")
-library(SubgroupBoost)
+library(gsMCP)
 ```
-* Set up initial alpha weights and transition weights per the below design
+## Set up initial alpha weights and transition weights per the below design
 
 ![Testing Srtategy](C:/Users/pingye.zhang/Downloads/design.PNG)

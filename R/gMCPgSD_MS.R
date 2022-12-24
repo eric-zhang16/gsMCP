@@ -167,5 +167,6 @@ gMCPgSD_MS <- function(g,w.start,t,h,p,alpha=0.025,timing,sfpar,debug){
   }
 
   res <- data.frame(Rejected=jd)
+  if(length(jd)==0) print("No hypothesis is rejected")
   return(res)
 }

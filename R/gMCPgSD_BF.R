@@ -12,7 +12,7 @@
 #' @param sfpar Spending function parameter
 #' @param debug Debug indicator
 #'
-#' @return a dataframe with a column 'Rejected' indicating which hypotheses from input h are rejected
+#' @return a dataframe  to indicate which hypotheses are rejected. 1=rejected, 0=not rejected
 #' @import gMCP
 #' @import gsDesign
 #' @export
@@ -83,8 +83,18 @@ gMCPgSD_BF <- function(g,w.start,t,h,p,alpha=0.025,timing,sfpar,debug){
     }
 
   }
-  res <- data.frame(Rejected=jd)
+
+  res <- matrix(0, nr=1, nc = length(h))
+  res.name <- rep(NA,length(h))
+  for(jj in 1:length(h)){
+    res[1,jj] <- (jj %in% jd)*1
+    res.name[jj] <- paste0('H',jj,sep='')
+  }
+
+  res <- data.frame(res)
+  colnames(res) <- res.name
 
   if(length(jd)==0) print("No hypothesis is rejected")
-  return(jd)
+  return(res)
+
 }

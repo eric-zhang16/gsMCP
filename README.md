@@ -24,7 +24,7 @@ w.start <- c(0.5,0.5,0,0)
 h is a vector of hypothesis indicators, t is a vector of IA/FA indicators. Assume 4 hypotheses with IA and one FA
 ``` r
 h <- seq(1,4)
-t - seq(1,2)
+t <- seq(1,2)
 ```
 Assume information fraction is 0.76 for H1 and H2, and 0.7 for H3 and H4
 ``` r
@@ -36,6 +36,22 @@ timing[,4]<-c(0.7,1)
 ```
 ## specify spending functions
 gsMCP uses Hwang-Shih-DeCani spending function. Users need to specify the gamma parameter
-sfpar<- c(-2,-2,-4,-4)
 
+``` r
+sfpar<- c(-2,-2,-4,-4)
+```
+## Set up observed p-values
+p <- matrix(NA, nr=length(t), nc = length(h))   # p are the p-value matrix
+p[,1]<-c(0.062,0.012)
+p[,2]<-c(0.086,0.013)
+p[,3]<-c(0.155,0.019)
+p[,4]<-c(0.102,0.018)
+
+## Apply graphical procedure 
+
+* Run the weighted bonferroni test first
+``` r
+gMCPgSD_BF(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar,debug=0)
+
+```
 

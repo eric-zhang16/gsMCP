@@ -1,0 +1,14 @@
+Package: gsMCP
+Type: Package
+Title: Graph Based Multiple Comparison Procedures
+Version: 0.1.0
+Author: Eric Zhang <sleepingzpy@gmail.com>
+Maintainer: Eric Zhang <sleepingzpy@gmail.com>
+Description: Functions for graphical described multiple test procedures.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+imports:
+   gMCP,
+   gsDesign
+RoxygenNote: 6.1.1

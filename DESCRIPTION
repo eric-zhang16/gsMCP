@@ -11,4 +11,4 @@ LazyData: true
 imports:
    gMCP,
    gsDesign
-RoxygenNote: 6.1.1
+RoxygenNote: 7.2.3

@@ -27,12 +27,9 @@ gMCPgSD_BF(g, w.start, t, h, p, alpha = 0.025, timing, sfpar, debug)
 \item{debug}{Debug indicator}
 }
 \value{
-Vector indicating whether each endpoint can be rejected
+a dataframe with column 'R' indicating whether each endpoint can be rejected, in the same order as input vector h
 }
 \description{
 Performs a graph based multiple test procedure using Bonferroni test for a given graph and
 unadjusted p-values
-}
-\examples{
-
 }

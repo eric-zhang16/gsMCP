@@ -41,12 +41,13 @@ gsMCP uses Hwang-Shih-DeCani spending function. Users need to specify the gamma 
 sfpar<- c(-4,-4,-2,-2)
 ```
 ## Set up observed p-values
+``` r
 p <- matrix(NA, nr=length(t), nc = length(h))   # p are the p-value matrix
 p[,1]<-c(0.062,0.012)
 p[,2]<-c(0.086,0.013)
 p[,3]<-c(0.155,0.019)
 p[,4]<-c(0.102,0.018)
-
+```
 ## Apply graphical procedure 
 
 * Run the weighted bonferroni test first, no hypothesis is rejected

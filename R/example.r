@@ -29,6 +29,6 @@ sfpar<-c(-4,-4,-15,-15)
 
 # spending function is set to be  Hwang-Shih-DeCani spending function, sfpar is the spending function parameter vector for each H
 # debug=1 to print some processing details
-gMCPgSD_MS(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar,debug=0)
+gMCPgSD_MS(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar,debug=1)
 gMCPgSD_BF(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar,debug=0)
 

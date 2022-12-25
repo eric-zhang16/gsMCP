@@ -21,7 +21,7 @@ G[3,2] <- G[4,1] <- 1
 w.start <- c(0.5,0.5,0,0)       
 ```
 ## Set up hypotheses and IA timeline
-h is a vector of hypothesis indicators, t is a vector of IA/FA indicators. Assume 4 hypotheses with IA and one FA
+h is a vector of hypothesis indicators, t is a vector of IA/FA indicators. Assume 4 hypotheses with one IA and one FA
 ``` r
 h <- seq(1,4)
 t <- seq(1,2)

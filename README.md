@@ -54,10 +54,14 @@ p[,4]<-c(0.102,0.018)
 ``` r
 gMCPgSD_BF(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar,debug=0)
 
+# "No hypothesis is rejected"
+#   H1 H2 H3 H4
+# 1  0  0  0  0
 ```
 * Run the modified Simes test, all hypotheses are rejected. User can set debug=1 to track the rejection process
 ``` r
 gMCPgSD_MS(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar,debug=0)
 
-
+#   H1 H2 H3 H4
+# 1  1  1  1  1
 ```

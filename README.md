@@ -50,7 +50,7 @@ p[,4]<-c(0.102,0.018)
 ```
 ## Apply graphical procedure 
 
-* Run the weighted bonferroni test first, no hypothesis is rejected
+* Run the weighted bonferroni test first, no hypothesis is rejected (0 means not rejected)
 ``` r
 gMCPgSD_BF(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar,debug=0)
 
@@ -58,7 +58,7 @@ gMCPgSD_BF(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar
 #   H1 H2 H3 H4
 #    0  0  0  0
 ```
-* Run the modified Simes test, all hypotheses are rejected. User can set debug=1 to track the rejection process
+* Run the modified Simes test, all hypotheses are rejected (1 means rejected). User can set debug=1 to track the rejection process
 ``` r
 gMCPgSD_MS(g=G,w.start=w.start,t=t,h=h,p=p,alpha=0.025,timing=timing,sfpar=sfpar,debug=0)
 
